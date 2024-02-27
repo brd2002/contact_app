@@ -1,22 +1,25 @@
 package com.example.contactany.roomdb.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.example.contactany.roomdb.entity.Contact
 
 @Dao
 interface ContactDao {
     // create
-    fun createContact(contact:Contact){
-
-    }
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun createContact(contact:Contact)
     // update
-    fun updateContact(contact: Contact){
-
-    }
+    @Update
+    fun updateContact(contact: Contact)
     // read
+    @Query("SELECT * FROM Contact")
     fun readContact() : List<Contact>
     // delete
-    fun deleteContact(contact: Contact){
-
-    }
+    @Delete
+    fun deleteContact(contact: Contact)
 }
