@@ -10,7 +10,7 @@ object DbBuilder {
         if (database == null){
             database = Room.databaseBuilder(context ,
                 Database::class.java ,
-                dbName).allowMainThreadQueries().build()
+                dbName).fallbackToDestructiveMigration().allowMainThreadQueries().build()
         }
         return database
 

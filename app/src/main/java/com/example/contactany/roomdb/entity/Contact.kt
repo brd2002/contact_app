@@ -6,11 +6,11 @@ import java.util.Date
 
 
 @Entity
-class Contact (
-   @PrimaryKey val id : Int ? = null,
-    val profile : Int ?  = null,
-    val name : String ,
-    val phoneNumber : String ,
-    val email : String ? = null ,
+data class Contact (
+    @PrimaryKey val id : Int ? = null,
+    var profile : ByteArray ?  = null,
+    var name : String?=null,
+    var phoneNumber : String?=null,
+    var email : String ? = null,
 //    val date : Date
 )
