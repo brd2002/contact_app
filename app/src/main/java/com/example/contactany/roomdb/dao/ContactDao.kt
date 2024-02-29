@@ -12,7 +12,7 @@ import com.example.contactany.roomdb.entity.Contact
 interface ContactDao {
     // create
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun createContact(contact:Contact)
+    fun createContact(contact:Contact) : Long
     // update
     @Update
     fun updateContact(contact: Contact)
