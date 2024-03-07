@@ -11,7 +11,7 @@ import com.example.contactany.databinding.ContactItemBinding
 import com.example.contactany.roomdb.entity.Contact
 
 
-class ContactAdapter(var contactList : List<Contact> , var   context: Context) : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
+class  ContactAdapter(var contactList : List<Contact> , var   context: Context) : RecyclerView.Adapter<ContactAdapter.MyViewHolder>() {
     inner class MyViewHolder (val binding : ContactItemBinding) : RecyclerView.ViewHolder(binding.root){}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
