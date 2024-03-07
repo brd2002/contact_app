@@ -7,13 +7,6 @@ import kotlinx.coroutines.runBlocking
 
 fun main(){
     runBlocking {
-//    async {
-//        greet()
-//
-//    }
-//        async {
-//            greet2()
-//        }
         repeat(1000){
             async {
                 if (it%2 == 0){
