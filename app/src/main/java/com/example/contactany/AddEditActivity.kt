@@ -12,7 +12,9 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import com.example.contactany.databinding.ActivityAddEditBinding
+import com.example.contactany.mvvmarch.AddEditActivityViewModel
 import com.example.contactany.roomdb.DbBuilder
 import com.example.contactany.roomdb.entity.Contact
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -22,6 +24,7 @@ class AddEditActivity : AppCompatActivity() {
     val binding  by lazy {
         ActivityAddEditBinding.inflate(layoutInflater)
     }
+    lateinit var viewModel: AddEditActivityViewModel
     var contact = Contact()
     private val startForProfileImageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -44,6 +47,7 @@ class AddEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(AddEditActivityViewModel::class.java)
         // view profile picture
         binding.imageView.setOnLongClickListener {
             var dialog = Dialog(this )
@@ -67,15 +71,14 @@ class AddEditActivity : AppCompatActivity() {
             contact.email = binding.gmailId.text.toString()
             contact.phoneNumber = binding.phonenumber.text.toString()
 //            
-            // get data base
-           val db =   DbBuilder.getdb(this )
-            // then insert date in database
-            val i = db?.ContactDao()?.createContact(contact)
-            if (i != null) {
-                if (i > 0 ){
-                    Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
+            viewModel.storeData(contact){
+                if (it != null) {
+                    if (it > 0 ){
+                        Toasty.success(this, "Success!", Toast.LENGTH_SHORT, true).show();
+                    }
                 }
             }
+
         }
         binding.imageView.setOnClickListener {
             ImagePicker.with(this)
