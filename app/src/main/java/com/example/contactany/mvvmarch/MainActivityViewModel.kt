@@ -7,12 +7,14 @@ import com.example.contactany.roomdb.DbBuilder
 import com.example.contactany.roomdb.entity.Contact
 
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
-    var db : Database ? = null
-    var conatactList = ArrayList<Contact>()
+
+     private var repo : Repo
+     var contact = ArrayList<Contact>()
     init {
-        db = DbBuilder.getdb(application)
-       db?.ContactDao()?.readContact()?.forEach {
-           conatactList.add(it)
-       }
+        repo = Repo(application)
+
+        repo.getData()?.map {
+            contact.add(it)
+        }
     }
 }

@@ -26,6 +26,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.rv.layoutManager = LinearLayoutManager(this  )
-        binding.rv.adapter = ContactAdapter(viewModel!!.conatactList , this)
+        binding.rv.adapter = ContactAdapter(viewModel!!.contact , this)
     }
 }

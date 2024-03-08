@@ -7,12 +7,13 @@ import com.example.contactany.roomdb.DbBuilder
 import com.example.contactany.roomdb.entity.Contact
 
 class AddEditActivityViewModel(application: Application) : AndroidViewModel(application) {
-    var db : Database ?= null
+    var repo :Repo
     init {
-         db =   DbBuilder.getdb(application)
+       repo = Repo(application)
+
     }
     fun storeData (contact: Contact , function :(i : Long?)-> Unit){
-       var i =  db?.ContactDao()?.createContact(contact)
+       var i =  repo.insertData(contact)
         function(i)
     }
 }

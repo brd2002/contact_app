@@ -16,8 +16,8 @@ class Repo(var context : Context ) {
     fun getData() : List<Contact> ?{
       return database?.ContactDao()?.readContact()
     }
-    fun insertData(contact : Contact){
-        database?.ContactDao()?.createContact(contact)
+    fun insertData(contact : Contact): Long?{
+       return  database?.ContactDao()?.createContact(contact)
     }
     fun deleteData (contact: Contact){
         database?.ContactDao()?.deleteContact(contact)
