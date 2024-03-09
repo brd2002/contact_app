@@ -1,6 +1,7 @@
 package com.example.contactany.mvvmarch
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.example.contactany.dbName
 import com.example.contactany.roomdb.Database
 
@@ -13,7 +14,7 @@ class Repo(var context : Context ) {
     init {
         database = DbBuilder.getdb(context)
     }
-    fun getData() : List<Contact> ?{
+    fun getData() : LiveData< List<Contact>>?{
       return database?.ContactDao()?.readContact()
     }
     fun insertData(contact : Contact): Long?{

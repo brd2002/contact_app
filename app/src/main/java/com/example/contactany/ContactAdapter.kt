@@ -2,6 +2,7 @@ package com.example.contactany
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
@@ -87,5 +88,10 @@ class  ContactAdapter(var contactList : List<Contact> , var   context: Context) 
         holder.binding.name.text = contact.name
         holder.binding.phone.text = contact.phoneNumber
         holder.binding.email.text = contact.email
+        holder.itemView.setOnClickListener{
+            context.
+            startActivity(Intent(context , AddEditActivity::class.java).putExtra("FLAG" , 1)
+                .putExtra("DATA" , contact))
+        }
     }
 }

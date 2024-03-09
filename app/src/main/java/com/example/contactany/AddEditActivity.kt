@@ -2,16 +2,21 @@ package com.example.contactany
 
 import android.app.Activity
 import android.app.Dialog
+import android.graphics.BitmapFactory
 import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.text.set
 import androidx.lifecycle.ViewModelProvider
 import com.example.contactany.databinding.ActivityAddEditBinding
 import com.example.contactany.mvvmarch.AddEditActivityViewModel
@@ -43,12 +48,34 @@ class AddEditActivity : AppCompatActivity() {
                 Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
             }
         }
+    var flags = -1
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(AddEditActivityViewModel::class.java)
+        if (intent.hasExtra("FLAG")){
+            flags = intent.getIntExtra("FLAG" , -1)
+        }
         // view profile picture
+        if (flags ==1 ) {
+
+            if (Build.VERSION_CODES.TIRAMISU <= Build.VERSION.SDK_INT)
+                contact = intent.getSerializableExtra("DATA", Contact::class.java)!!
+            else {
+                contact = intent.getSerializableExtra("DATA") as Contact
+            }
+            binding.savebutton.text = "Update Contact"
+            var imageByte = contact.profile
+            if (imageByte != null) {
+                var image = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.size)
+                binding.imageView.setImageBitmap(image)
+            }
+            binding.name.setText(contact.name)
+            binding.gmailId.setText(contact.email)
+            binding.phonenumber.setText(contact.phoneNumber)
+            
+        }
         binding.imageView.setOnLongClickListener {
             var dialog = Dialog(this )
             dialog.setContentView(R.layout.image_dialog)
