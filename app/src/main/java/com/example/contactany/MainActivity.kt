@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -77,6 +79,42 @@ fun createUI(){
     binding.rv.layoutManager = LinearLayoutManager(this  )
     adapter = ContactAdapter(contactList , this)
     binding.rv.adapter = adapter
+
+    binding.searchBox.addTextChangedListener(object : TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            if (s == null) {
+                adapter.contactList = contactList
+                adapter.notifyDataSetChanged()
+            }else {
+                if (s.length == 0 || s.isNullOrBlank() || s.isNullOrEmpty()){
+                    adapter.contactList = contactList
+                    adapter.notifyDataSetChanged()
+                }else {
+                    var templist = ArrayList<Contact>();
+                    contactList.forEach{
+                        var temp = toLowerCase(s);
+
+                        if (it.name!= null) {
+                            if (it.name!!.lowercase().contains(temp) || it.phoneNumber!!.contains(s)) {
+                                templist.add(it)
+                            }
+                        }
+                    }
+                    adapter.contactList = templist
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+
+        }
+
+    })
 }
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -92,4 +130,11 @@ fun createUI(){
             }
         }
     }
+}
+fun toLowerCase(text: CharSequence): String {
+    val builder = StringBuilder(text.length)
+    for (char in text) {
+        builder.append(Character.toLowerCase(char))
+    }
+    return builder.toString()
 }

@@ -15,10 +15,10 @@ class MainActivity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this).get(TempViewModel::class.java)
-        binding.textOfViewModel.text = viewModel.provideA().toString()
-        binding.changeButton.setOnClickListener {
-            viewModel.a++
-            binding.textOfViewModel.text = viewModel.provideA().toString()
+//        binding.textOfViewModel.text = viewModel.provideA().toString()
+//        binding.changeButton.setOnClickListener {
+//            viewModel.a++
+//            binding.textOfViewModel.text = viewModel.provideA().toString()
         }
     }
-}
+//}
