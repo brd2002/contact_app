@@ -13,14 +13,14 @@ import com.example.contactany.roomdb.entity.Contact
 interface ContactDao {
     // create
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun createContact(contact:Contact) : Long
+    suspend fun createContact(contact:Contact) : Long
     // update
     @Update
-    fun updateContact(contact: Contact)
+    suspend fun updateContact(contact: Contact)
     // read
     @Query("SELECT * FROM Contact")
     fun readContact() : LiveData<List<Contact> >
     // delete
     @Delete
-    fun deleteContact(contact: Contact)
+    suspend fun deleteContact(contact: Contact)
 }

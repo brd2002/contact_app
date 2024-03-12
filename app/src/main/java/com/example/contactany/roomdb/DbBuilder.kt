@@ -12,7 +12,6 @@ object DbBuilder {
                 Database::class.java ,
                 dbName)
                 .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
                 .build()
         }
         return database

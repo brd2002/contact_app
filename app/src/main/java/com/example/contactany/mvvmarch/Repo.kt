@@ -17,13 +17,13 @@ class Repo(var context : Context ) {
     fun getData() : LiveData< List<Contact>>?{
       return database?.ContactDao()?.readContact()
     }
-    fun insertData(contact : Contact): Long?{
+    suspend fun insertData(contact : Contact): Long?{
        return  database?.ContactDao()?.createContact(contact)
     }
-    fun deleteData (contact: Contact){
+    suspend fun deleteData (contact: Contact){
         database?.ContactDao()?.deleteContact(contact)
     }
-    fun updateData (contact: Contact){
+    suspend fun updateData (contact: Contact){
         database?.ContactDao()?.updateContact(contact)
     }
 
